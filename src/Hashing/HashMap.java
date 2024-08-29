@@ -1,4 +1,5 @@
 package Hashing;
+import Stack.Element;
 
 /**
  *  hash function: one-to-one function that maps the elements to their addresses.

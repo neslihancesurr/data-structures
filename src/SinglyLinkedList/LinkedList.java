@@ -1,8 +1,8 @@
 package SinglyLinkedList;
 
 public class LinkedList {
-    Node head;
-    Node tail;
+    public Node head;
+    public Node tail;
 
     public LinkedList(){
         head = null;

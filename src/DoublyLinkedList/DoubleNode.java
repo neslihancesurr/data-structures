@@ -1,8 +1,8 @@
 package DoublyLinkedList;
 
 public class DoubleNode {
-    DoubleNode previous;
-    DoubleNode next;
+    public DoubleNode previous;
+    public DoubleNode next;
     int data;
 
     public DoubleNode(int data){
