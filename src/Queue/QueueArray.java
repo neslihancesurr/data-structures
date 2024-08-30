@@ -1,5 +1,7 @@
 package Queue;
 
+import Basics.Element;
+
 public class QueueArray {
     /* The element objects are stored in a static array.
        One integer points to the first element (first) and another points to the node after the last element (last).

@@ -1,6 +1,6 @@
 package Queue;
 
-import SinglyLinkedList.Node;
+import Basics.Node;
 
 public class QueueLinked {
     Node first;

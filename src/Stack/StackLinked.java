@@ -1,6 +1,6 @@
 package Stack;
 
-import SinglyLinkedList.Node;
+import Basics.Node;
 
 public class StackLinked {
     Node top;
