@@ -1,4 +1,5 @@
 package CircularList;
+import Basics.DoubleNode;
 
 public class CircularList {
     DoubleNode head;

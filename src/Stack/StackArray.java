@@ -1,5 +1,7 @@
 package Stack;
 
+import Basics.Element;
+
 import java.util.Stack;
 
 public class StackArray {

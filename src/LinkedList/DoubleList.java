@@ -1,4 +1,5 @@
 package LinkedList;
+import Basics.DoubleNode;
 
 public class DoubleList {
     DoubleNode head;
