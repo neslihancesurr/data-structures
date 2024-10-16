@@ -10,7 +10,7 @@ public class DoubleList {
         tail = null;
     }
 
-    //
+
     public void insertFirst(DoubleNode newNode) {
 
         if (tail == null) {
@@ -19,7 +19,6 @@ public class DoubleList {
             newNode.next = head;
             head.previous = newNode;
         }
-
         head = newNode;
     }
 
@@ -35,11 +34,11 @@ public class DoubleList {
         tail = newNode;
     }
 
-    public void insertMiddle(DoubleNode newNode, DoubleNode previous) {
-        newNode.previous = previous;
-        newNode.next = previous.next;
-        previous.next.previous = newNode;
-        previous.next = newNode;
+    public void insertMiddle(DoubleNode newNode, DoubleNode before) {
+        newNode.previous = before;
+        newNode.next = before.next;
+        before.next.previous = newNode;
+        before.next = newNode;
     }
 
     public void deleteFirst() {
@@ -122,7 +121,56 @@ public class DoubleList {
         }
       }
 
+      // Exercise 12
+
+    public void cutPaste(DoubleNode first, DoubleNode last, DoubleNode paste){
+
     }
+
+    public void deletePrimes() {
+        if (head == null) {
+            return; // Liste boşsa, hiçbir şey yapma
+        }
+        DoubleNode current = head; // Baş düğümden başla
+        DoubleNode prev = null; // Önceki düğüm için referans
+        while (current != null) {
+            if (isPrime((current).data)) { // Geçerli düğüm asal mı kontrol et
+                if (current == head) {
+                    head = head.next; // Baş düğümse, başı bir sonraki düğüme güncelle
+                    if (head != null) {
+                        head.previous = null; // Yeni baş düğümün prev referansını null yap
+                    }
+                } else {
+                    // Önceki düğümün next referansını geçerli düğümün bir sonraki düğümüne ayarla
+                    prev.next = current.next;
+                    if (current.next != null) {
+                        current.next.previous = prev; // Geçerli düğümden sonraki düğümün prev referansını önceki düğüme ayarla
+                    }
+                }
+            } else {
+                prev = current; // Eğer düğüm asal değilse, önceki düğümü güncelle
+            }
+            current = current.next; // Geçerli düğümü bir sonraki düğüme taşı
+        }
+    }
+
+    private boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
+
+
+}
 
 
 // H - 1 - 2 - T

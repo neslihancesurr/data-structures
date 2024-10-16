@@ -114,7 +114,6 @@ public class HashMap {
 
     }
 
-
     /**
      * The deletion algorithm takes in the Element to be deleted as a parameter. The data stored in the element is
      * put through the hash function to get its regular storing place. In case this spot is filled, the while loop

@@ -1,5 +1,4 @@
 package LinkedList;
-
 import Basics.Node;
 
 public class LinkedList {
@@ -26,11 +25,9 @@ public class LinkedList {
     public void insertFirst(Node newNode) {
         if (tail == null) {
             tail = newNode;
-            head = newNode;
-        } else {
-            newNode.next = head; //make the next field of the new node point to the previous head FIRST
-            head = newNode; //THEN set the new head as the new node
         }
+        newNode.next = head;
+        head = newNode;
     }
 
     public void insertLast(Node newNode){
@@ -47,7 +44,6 @@ public class LinkedList {
 
         newNode.next = previous.next;
         previous.next = newNode;
-
     }
 
     public Node searchNode(int i){
@@ -70,7 +66,6 @@ public class LinkedList {
             if (tmp.data == number){
                 return index;
             }
-
             tmp = tmp.next;
             index++;
         }
@@ -78,25 +73,46 @@ public class LinkedList {
         return -1;
     }
 
-    public Node searchIthNode(int i){ // Index number starting from 0
+    public Node searchIthNode(int i) { // Index number starting from 0
         Node tmp = head;
         int count = 0;
 
         while (tmp != null && count < i) {
-            tmp = tmp.next;
             count++;
+            tmp = tmp.next;
         }
 
-        if (tmp==null){
+        if (tmp == null) {
             throw new IndexOutOfBoundsException("Index" + i + "is out of bounds.");
         }
 
         return tmp;
     }
 
+    public void deleteFirst(){
+        //different from the code in the book
+        if (head == null){
+            System.out.println("The list is already empty.");
+            return;
+        }
+        head = head.next;
+
+        if (head == null){
+            tail = null;
+        }
+    }
+
+    //we know there is at least one element
+    //if there is only one element, head will point to null.
+    //tail also needs to point to null
+
     public void deleteLast(){
         Node tmp = head;
         Node previous = null;
+
+        if (head == null){
+            System.out.println("The list is already empty!");
+        }
 
         while (tmp != tail && tmp != null){
             previous = tmp;
@@ -197,7 +213,6 @@ public class LinkedList {
             newNode.next = tail;
             previous.next = newNode;
         }
-
     }
 
     public LinkedList getIndexed(LinkedList list){
@@ -230,11 +245,90 @@ public class LinkedList {
 
     }
 
+    public void listAll() {
+        Node tmp = head;
 
-
-
-
+        while (tmp != null) {
+            System.out.println(tmp.data);
+            tmp = tmp.next;
+        }
     }
+
+    public LinkedList reverse() {
+        Node prev = null;
+        Node current = head;
+        Node following = null;
+
+        // Traverse through the list and reverse the links
+        while (current != null) {
+            following = current.next;   // Store the next node
+            current.next = prev;   // Reverse the current node's pointer
+            prev = current;        // Move `prev` one step forward
+            current = following;        // Move `current` one step forward
+        }
+
+        // Update the head to the new first node (prev)
+        head = prev;
+        return this;  // Return the modified list
+    }
+    public static LinkedList primeFactors(int N) {
+        LinkedList factors = new LinkedList();
+
+        // Divide N by 2 as long as it's divisible
+        while (N % 2 == 0) {
+            factors.insertLast(new Node(2));
+            N /= 2;
+        }
+
+        // Now check for odd factors from 3 onwards
+        // You increment by 2 to check/divide by all odd numbers. Square root is for the optimization
+        for (int i = 3; i <= Math.sqrt(N); i += 2) {
+            while (N % i == 0) {
+                factors.insertLast(new Node(i));
+                N /= i;
+            }
+        }
+
+        // If N is still greater than 2, it must be prime
+        if (N > 2) {
+            factors.insertLast(new Node(N));
+        }
+
+        return factors;
+    }
+
+    // Exercise 29
+    public void deletePrimes() {
+        if (head == null) {
+            return;
+        }
+        Node current = head;
+        Node previous = null;
+
+        while (current != null)
+            if (isPrime(current.data)) {
+                if (current == head) {
+                    deleteFirst();
+                } else {
+                    deleteMiddle(current);
+                }
+            }
+    }
+
+    private boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+}
 
 
 // H - 1 - 2 - 3 - 4 - 5 - T
