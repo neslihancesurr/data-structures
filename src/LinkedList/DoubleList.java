@@ -10,7 +10,6 @@ public class DoubleList {
         tail = null;
     }
 
-
     public void insertFirst(DoubleNode newNode) {
 
         if (tail == null) {
@@ -74,7 +73,6 @@ public class DoubleList {
     public void deleteMiddle(DoubleNode deleted) {
         deleted.previous.next = deleted.next;
         deleted.next.previous = deleted.previous;
-
     }
 
     public boolean isPalindrome() {
