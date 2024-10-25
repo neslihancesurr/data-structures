@@ -11,22 +11,19 @@ public class StackArray {
 
     public StackArray(int N) {
         stack = new Element[N];
-
         this.N = N;
         top = -1;
     }
 
     Element top() {
-        return stack[top];  // returns the element with the top index
+        return stack[top];
     }
 
     public boolean isFull() {
-        // true the top is at the highest index, false if it is not
         return top == (N - 1);
     }
 
     public boolean isEmpty() {
-        // true if top is -1, false if it is not
         return top == -1;
     }
 
@@ -37,7 +34,7 @@ public class StackArray {
         }
     }
 
-    public Element pop() {
+    public Element pop(){
         if (!isEmpty()) {
             top--;
             return stack[top + 1];
@@ -45,54 +42,15 @@ public class StackArray {
             return null;
     }
 
-    // This is a function which takes a string consisting of parenthesis and checks if the parenthesis are balanced.
-    // It returns true if the string is null or empty. If not, it takes each '(' in the string and pushes them on a stack.
-    // If the char is a ')' it pops one matching parentheses from the stack.
-    // If the char is a ')' and the stack is empty it returns false because there is an unmatched closing parenthesis.
-    // If the stack is empty, it means the string is balanced.
-
-    public boolean isBalanced(String s) {
-        if (s == null || s.isEmpty()) {
-            return true; // if the string given is null or empty, we consider it balanced.
+    public void printStack(){
+        for (Element element: this.stack){
+            if(element == null){
+                System.out.println("null");
+            } else {
+                System.out.println(element.data);
+            }
         }
-// ((()))   )())
-        Stack<Character> stack = new Stack<>();
-
-        for (char c : s.toCharArray()) {
-            if (c == '(') {
-                stack.push(c);
-            } else if (c == ')') {
-                if (stack.isEmpty()) {
-                    return false; // unmatched closing parenthesis
-                } else
-                    stack.pop(); // pop a matching parenthesis from the stack
-            } else return false;
-        }
-        return stack.isEmpty();
     }
-
-    // Write a function using stacks that determines if a parenthesis sequence
-    // is balanced or not. For example the parenthesis sequence ( { ( ) [ { } ] } ( ) ) is balanced,
-    // whereas the parenthesis sequence ( } ] ) ( is not.
-    // You can assume that the character sequence contains just (, {, [, ), },] characters.
-
-/*    public boolean isBalancedMany(String s) {
-        if (s == null || s.isEmpty()) {
-            return true;
-        }
-
-        Stack<Character> stack = new Stack<>();
-
-        for (char c : s.toCharArray()) {
-            if (c == '(' || c == '{' || c == '[') {
-                stack.push(c);
-            } else if (c == stack.pop()) {
-
-            } else return false;
-        }
-
-        return stack.isEmpty();
-    }*/
 
     void enlarge() {
 
@@ -129,6 +87,17 @@ public class StackArray {
         Element second = pop();
         push(tmptop);
         push(second);
+    }
+
+    public void pushK(int k, int data){
+       if (k == 1){
+           this.push(new Element(data));
+           return;
+       }
+
+       Element topElement = this.pop();
+       pushK(k-1, data);
+       this.push(topElement);
     }
 
 

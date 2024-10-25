@@ -1,5 +1,4 @@
 package LinkedList;
-
 import Basics.Node;
 
 public class LinkedListTest {
@@ -18,6 +17,5 @@ public class LinkedListTest {
         newList.insertMiddle(second, first);
 
        newList.listAll();
-
     }
 }

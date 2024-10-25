@@ -112,6 +112,7 @@ public class LinkedList {
 
         if (head == null){
             System.out.println("The list is already empty!");
+            return;
         }
 
         while (tmp != tail && tmp != null){
