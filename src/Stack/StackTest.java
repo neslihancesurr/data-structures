@@ -5,35 +5,20 @@ import Basics.Node;
 
 public class StackTest {
     public static void main(String[] args) {
-        StackArray stackArray = new StackArray(6);
-        stackArray.push(new Element(77));
-        stackArray.push(new Element(3));
-        stackArray.push(new Element(3));
-        stackArray.push(new Element(4));
-        stackArray.push(new Element(5));
-        stackArray.pushK(3, 40);
 
-        System.out.println("Array Stack: ");
-        stackArray.printStack();
+        StackLinked stackLinked = new StackLinked();
+        stackLinked.push(new Node(1));
+        stackLinked.push(new Node(6));
+        stackLinked.push(new Node(2));
+        stackLinked.push(new Node(8));
+        stackLinked.push(new Node(3));
+        stackLinked.push(new Node(9));
+        //stackLinked.push(new Node(7));
 
-        System.out.println(stackArray.multiply());
+        stackLinked.printStack();
 
-
-       // StackLinked stackLinked = new StackLinked();
-       // stackLinked.push(new Node(3));
-       // stackLinked.push(new Node(3));
-       // stackLinked.push(new Node(3));
-       // stackLinked.push(new Node(3));
-
-       // stackLinked.pushK(3, 40);
-
-        //System.out.println("Linked Stack:");
-       // stackLinked.printStack();
-
+        System.out.println("After:");
+        stackLinked.printStack();
     }
-
-
-
-
-
 }
+

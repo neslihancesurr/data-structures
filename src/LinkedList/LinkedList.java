@@ -1,4 +1,5 @@
 package LinkedList;
+import Basics.DoubleNode;
 import Basics.Node;
 
 public class LinkedList {
@@ -46,6 +47,14 @@ public class LinkedList {
         previous.next = newNode;
     }
 
+    public void printList(){
+        Node temp = head;
+
+        while (temp != null){
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
     public Node searchNode(int i){
         Node tmp = head;
 
@@ -328,6 +337,65 @@ public class LinkedList {
         return true;
     }
 
+    // 5  6  3  5  6  3  6
+    // temp 3
+    // inner 5
+    public boolean containsOnlyTriplicates(){
+        Node temp = head;
+        Node innerTemp;
+
+        while (temp != null) {
+            int currentData = temp.data;
+            innerTemp = head;
+            int count = 1;
+            while (innerTemp != null){
+                if (temp != innerTemp){
+                    if (currentData == innerTemp.data){
+                        count++;
+                    }
+                }
+                innerTemp = innerTemp.next;
+            }
+            if (count != 3){
+                return false;
+            }
+
+            temp = temp.next;
+        }
+        return true;
+    }
+
+    public boolean containsOnlyTriplicates2() {
+/** ASSESSMENT
+ * @grade 1
+ * @feedback
+ */
+        Node current = head;
+
+/** ASSESSMENT
+ * @grade 13
+ * @feedback outer while 5, inner while 6, if check 2
+ */
+        while (current != null) {
+            Node innerCurrent = head;
+            int count = 1;
+            while (innerCurrent != null) {
+                if (innerCurrent.data == current.data) {
+                    count++;
+                }
+                innerCurrent = innerCurrent.next;
+            }
+            if (count != 3) {
+                return false;
+            }
+            current = current.next;
+        }
+/** ASSESSMENT
+ * @grade 1
+ * @feedback
+ */
+        return true;
+    };
 
 }
 

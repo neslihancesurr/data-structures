@@ -43,12 +43,16 @@ public class StackArray {
     }
 
     public void printStack(){
-        for (Element element: this.stack){
-            if(element == null){
+        int topIndex = top;
+
+        while (topIndex > -1){
+            if(stack[topIndex] == null){
                 System.out.println("null");
             } else {
-                System.out.println(element.data);
+                System.out.println(stack[topIndex].data);
             }
+
+            topIndex--;
         }
     }
 
@@ -180,20 +184,93 @@ public class StackArray {
     }
 
     // Exercise 10 - only use pop, push and isEmpty
-    // 3 9 5 7 4 8 2
-    // 2 8 5 7 4 8
-
+    // original  9 5 7 4 8 2
+    // external
     public void removeBottom(){
-        StackArray stackArray = new StackArray(N);
+        StackArray externalStack = new StackArray(N);
+        int topIndex = top;
+        int count = 0;
 
-        while (!isEmpty()){
-            stackArray.push(pop());
-            
+        while (count < topIndex){
+            externalStack.push(this.pop());
+            count++;
         }
+        // pop the bottom one and don't keep it
+        pop();
 
+        // put the rest back in the original stack
+        while (!externalStack.isEmpty()){
+            this.push(externalStack.pop());
+        }
     }
 
+    // Exercise 11 - not allowed to use push and pop
+    // 3  9  5  7  4  8  2       top = 6
+    // 3  9  5  7  4  8  2
+    public StackArray copy(){
+        StackArray stackArray = new StackArray(N);
 
+        int count = 0;
+        while (count <= top){
+            stackArray.stack[count] = stack[count];
+            count++;
+        }
+        stackArray.top = top;
+
+        return stackArray;
+    }
+
+    // Exercise 12
+    // 4 5 6 7 8     -  4 4 5 5  66
+    public void doubleStack(){
+
+        if (isEmpty()){
+            N = N * 2;
+            stack = new Element[N];
+            return;
+        }
+
+        Element topElement = pop();
+
+        doubleStack();
+
+        push(topElement);
+        push(topElement);
+    }
+
+    // Exercise 13 - only use pop, push and isEmpty
+    // 5 6 7 8 9 10 11    11 10 9
+    public void removeMiddle() {
+        StackArray stackArray = new StackArray(N);
+
+        // if the top is at an even index, then there odd number of elements.
+        // if top is odd then we have even number of elements, which we don't want.
+        if (top % 2 != 0) {
+            System.out.println("The stack has even number of elements.");
+            return;
+        }
+
+        // find how many elements to extract 3
+        int deletedIndex = top / 2;
+
+        int count = 0;
+        while (count < deletedIndex){
+            stackArray.push(pop());
+            count++;
+        }
+        // pop the element to be deleted
+        pop();
+
+        while (!stackArray.isEmpty()){
+            push(stackArray.pop());
+        }
+    }
+
+    //Exercise 14
+    public void removeBottomK(){
+
+
+    }
     // Exercise 19
     public void pushK(int k, int data){
        if (k == 1){
@@ -206,7 +283,55 @@ public class StackArray {
        this.push(topElement);
     }
 
+    //Write a static method using an external stack (only one external stack
+    //is allowed) that determines if an integer array is balanced or not. A
+    //number k less than 10 is balanced with the number 10+k. For example,
+    //the array 2, 3, 13, 12, 4, 14 is balanced, whereas 5, 15, 4, 3, 14, 13 not.
+    //You are not allowed to use any stack attributes such as N, top, array
+    //etc. Write the method in array implementation.
+    // 5, 15, 4, 3, 14, 13 array
+    // 4  stack
+
+    public static boolean isBalanced(int [] a){
+        StackArray externalStack = new StackArray(a.length);
+
+        for (int number : a){
+
+            if (number < 10){
+                externalStack.push(new Element(number));
+            } else if (externalStack.isEmpty()) {
+                return false;
+            } else {
+                Element topElement = externalStack.pop();
+                if (number - 10 != topElement.data){
+                    return false;
+                }
+            }
+        }
+        return externalStack.isEmpty();
+    }
+
+    public void insertAfterLargest(int s){
+        int largest = stack[top].data;
+        int indexOfLargest = 0;
 
 
+        for (int i = top; i >= 0; i--){
+            int currentData = stack[i].data;
 
+            if (currentData > largest){
+                largest = currentData;
+                indexOfLargest = i;
+            }
+        }
+
+        for (int i = top; i > indexOfLargest; i--){
+            stack[i + 1] = stack[i];
+        }
+
+        top++;
+        stack[indexOfLargest + 1].data = s;
+
+    }
 }
+

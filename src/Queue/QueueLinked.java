@@ -15,6 +15,24 @@ public class QueueLinked {
         return first == null;
     }
 
+
+    // first 5  4  last
+    public void printQueue(){
+        Node tmp = first;
+
+        System.out.println("First");
+        while (true) {
+
+            if (tmp == last){
+                break;
+            }
+
+            System.out.println(tmp.data);
+            tmp = tmp.next;
+        }
+        System.out.println("Last");
+    }
+
     public void enqueue(Node newNode){
         if (isEmpty()){
             first = newNode;
@@ -24,20 +42,52 @@ public class QueueLinked {
         last = newNode;
     }
 
+    // Handle the case for when the queue is empty.
+    // Handle the case when there is only one element.
     public Node dequeue(){
-        // Handle the case for when the queue is empty.
-        // Handle the case when there is only one element.
 
         Node dequeued = first;
 
         if (!isEmpty()){
             first = first.next;
             if (first == null){
-                last = null; // if the next field of first was null (only one element in the queue, the last should be updated to be null.
+                last = null;
             }
-        } else throw new IllegalStateException("Queue empty!");
+        } else {
+            System.out.println("Queue is empty!");
+        }
 
         return dequeued;
     }
 
+
+    //  first 4 last 5
+    public void moveToRear(){
+        if (isEmpty()){
+            System.out.println("Empty queue!");
+            return;
+        }
+
+        Node moved = dequeue();
+        enqueue(moved);
+    }
+
+    public void removeOddIndexed(){
+        QueueLinked external = new QueueLinked();
+
+        int index = 1;
+        while (!isEmpty()){
+            if (index % 2 == 0) {
+                external.enqueue(dequeue());
+            } else {
+                dequeue();
+            }
+            index++;
+        }
+
+        while (!external.isEmpty()){
+            enqueue(external.dequeue());
+        }
+    }
 }
+

@@ -27,6 +27,10 @@ public class StackLinked {
         return e;
     }
 
+    private Node peek() {
+        return top;
+    }
+
     public void printStack(){
         Node tmp = top;
 
@@ -47,12 +51,31 @@ public class StackLinked {
         pushK(k-1, data);
         this.push(topNode);
     }
-
-    // 4 7 3 9 7(top)
-    // 4 7 3 6 9 7(top)
-    // (3, 6)
-
-    // 7yi tut, 9u kaydır, 6yı koy, 7yi en tepeye ekle top yap
+    
+    // 45(1) 78(2) 98(3) 34(4) 23(5) 46(6) -top
+    // 78 34 46
 
 
+    // implement external stack
+
+    //put everything in the new stack
+
+    //use pop and an index to find odd ones -push back even ones + get rid of odd ones
+    void removeOddIndexed() {
+        StackLinked external = new StackLinked();
+
+        while (!isEmpty()) {
+            external.push(pop());
+        }
+
+        int index = 1;
+        while (!external.isEmpty()) {
+            if (index % 2 == 0) {
+                push(external.pop());
+            } else {
+                external.pop();
+            }
+            index++;
+        }
+    }
 }
