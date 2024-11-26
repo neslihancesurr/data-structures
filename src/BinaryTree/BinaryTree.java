@@ -31,6 +31,36 @@ public class BinaryTree {
         return null;
     }
 
+    public int[] pathList(){
+        TreeNode current = this.root;
+
+        int pathLength = 0;
+        while (current != null){
+            pathLength++;
+            if (current.data % 2 == 0){
+                current = current.right;
+            } else {
+                current = current.left;
+            }
+        }
+
+        int[] finalList = new int[pathLength];
+        current = root;
+        int index = 0;
+
+        while (current != null){
+            finalList[index] = current.data;
+
+            if (current.data % 2 == 0){
+                current = current.right;
+            } else {
+                current = current.left;
+            }
+            index++;
+        }
+        return finalList;
+    }
+
     public void insert(TreeNode newNode) {
         TreeNode parent = null;
         TreeNode tmp = root;
@@ -176,7 +206,4 @@ public class BinaryTree {
         }
         return count;
     }
-
-
-
 }

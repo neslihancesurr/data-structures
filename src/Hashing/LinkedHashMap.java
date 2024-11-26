@@ -7,15 +7,11 @@ import LinkedList.LinkedList;
  * This implementation illustrates the method of separate chaining to avoid collisions.
  * Both inserting and searching a specific element will take O(1) time.
  */
+
 public class LinkedHashMap {
     LinkedList[] table;
     int N;
 
-    /**
-     * The constructor initializes the main static array of size N.
-     * It iterates over the array to initialize a new linked list at every index.
-     * @param N the length of the main static array
-     */
     public LinkedHashMap(int N){
         table = new LinkedList[N];
         this.N = N;
@@ -23,6 +19,19 @@ public class LinkedHashMap {
             table[i] = new LinkedList();
         }
     }
+    
+    public void printLinkedMap(){
+        for (int i = 0; i < N; i++){
+            System.out.println(i + " th Index: ");
+            table[i].printList();
+        }
+    }
+
+    /**
+     * The constructor initializes the main static array of size N.
+     * It iterates over the array to initialize a new linked list at every index.
+     * @param N the length of the main static array
+     */
     public int hashFunction(int value){
         return value % N;
     }
@@ -67,7 +76,9 @@ public class LinkedHashMap {
         Node deletedNode = list.searchNode(deleted.data);
 
         if (deletedNode != null){
-            if (deletedNode.next == list.tail){
+            if (deletedNode == list.head){
+                list.deleteFirst();
+            } else if (deletedNode == list.tail){
                 list.deleteLast();
             } else {
                 list.deleteMiddle(deletedNode);

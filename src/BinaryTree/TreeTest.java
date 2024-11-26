@@ -1,9 +1,11 @@
 package BinaryTree;
 
+import java.util.LinkedList;
+
 public class TreeTest {
     public static void main(String[] args) {
 
-  /*      TreeNode rootNode = new TreeNode(50);
+        TreeNode rootNode = new TreeNode(50);
         BinaryTree tree = new BinaryTree();
         tree.root = rootNode;
 
@@ -18,7 +20,17 @@ public class TreeTest {
         tree.insert(new TreeNode(67));
         tree.insert(new TreeNode(76));
 
+        LinkedList<Integer> linkedList = new LinkedList<>();
 
+        rootNode.pathList(linkedList);
+        int[] myarray = tree.pathList();
+
+        System.out.println(linkedList);
+        for (int path: myarray) {
+            System.out.println(path);
+        }
+
+   /*
         int n1 = tree.nodeCountStack();
         tree.delete(50);
         int n2 = tree.nodeCountStack();
@@ -26,7 +38,7 @@ public class TreeTest {
         System.out.println("N1:" + n1);
         System.out.println("N2:" + n2);
 
-        tree.root.inorder();*/
+        tree.root.inorder();*//*
 
         TreeNode rootNode = new TreeNode(8);
         BinaryTree tree = new BinaryTree();
@@ -41,12 +53,15 @@ public class TreeTest {
         tree.insert(new TreeNode(14));
         tree.insert(new TreeNode(13));
 
+        rootNode.preorder();
+
         int n1 = tree.nodeCountStack();
         tree.delete(10);
         int n2 = tree.nodeCountQueue();
 
         System.out.println("N1:" + n1);
-        System.out.println("N2:" + n2);
+        System.out.println("N2:" + n2);*/
+
 
 
     }

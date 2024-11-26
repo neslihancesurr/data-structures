@@ -55,6 +55,8 @@ public class LinkedList {
             temp = temp.next;
         }
     }
+
+
     public Node searchNode(int i){
         Node tmp = head;
 

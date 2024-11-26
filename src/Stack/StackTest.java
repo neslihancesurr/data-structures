@@ -17,6 +17,7 @@ public class StackTest {
 
         stackLinked.printStack();
 
+        stackLinked.removeOddIndexed();
         System.out.println("After:");
         stackLinked.printStack();
     }

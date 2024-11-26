@@ -11,11 +11,12 @@ import Basics.Element;
   - how is the size of the table chosen?
   - is there collision and how will it be resolved?
  */
+
+/**
+ * This implementation makes use of a static Element array. As the array is immutable, another boolean array
+ * is used to mark which elements are deleted. N is the size of the array. It is preferable for N to be a prime number.
+ */
 public class HashMap {
-    /**
-     * This implementation makes use of a static Element array. As the array is immutable, another boolean array
-     * is used to mark which elements are deleted. N is the size of the array. It is preferable for N to be a prime number.
-     */
     Element[] table;
     boolean[] deleted;
     int N;
@@ -31,7 +32,11 @@ public class HashMap {
     public void printMap(){
         for (int i = 0; i < N; i++) {
             if (table[i] != null) {
-                System.out.println(i + "th Index: " + table[i].data);
+                String s = "";
+                if (deleted[i]){
+                    s = "(deleted)";
+                }
+                System.out.println(i + "th Index: " + table[i].data + s);
                 System.out.println("------");
             } else {
                 System.out.println(i + "th Index: empty");
@@ -111,7 +116,6 @@ public class HashMap {
         }
         table[index] = inserted;
         currentSize++;
-
     }
 
     /**
@@ -129,7 +133,7 @@ public class HashMap {
             if (!deleted[index] && table[index] == tobeDeleted){
                 break;
             }
-                index = (index + 1) & N;
+                index = (index + 1) % N;
         }
         deleted[index] = true;
     }
@@ -170,15 +174,12 @@ public class HashMap {
             i++;
             probes++;
             index = (index + i * i) % N;
-
-            if (index < 0) { // This ensures that the index does not become negative if the number gets too large.
+           // This ensures that the index does not become negative if the number gets too large.
+            if (index < 0) {
                 index += N;
             }
-
         }
-
         // If the probes are getting too long (more than N), rehash the table.
-
         if (probes < N){
             table[index] = inserted;
             currentSize++;
@@ -216,16 +217,17 @@ public class HashMap {
      */
 
     public Element searchDouble(int value){
-        int index = hashFunction(value);
-        int index2 = hashFunctionDouble(value);
+        int hashValue1 = hashFunction(value);
+        int hashValue2 = hashFunctionDouble(value);
 
-        while (table[index] != null){
-            if(!deleted[index] && table[index].data == value){
+        int i = 1;
+        while (table[hashValue1] != null){
+            if(!deleted[hashValue1] && table[hashValue1].data == value){
                 break;
             }
-            index = (index + index2) % N;
+            hashValue1 = (hashValue1 + i * hashValue2) % N;
         }
-        return table[index];
+        return table[hashValue1];
     }
 
 
@@ -250,7 +252,6 @@ public class HashMap {
             if (!oldDeleted[i] && oldTable[i] != null){
                 insertLinear(oldTable[i]);
             }
-
         }
     }
 

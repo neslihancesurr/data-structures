@@ -1,5 +1,9 @@
 package BinaryTree;
 
+import Basics.Node;
+
+import java.util.LinkedList;
+
 public class TreeNode {
     int data;
     TreeNode left;
@@ -112,7 +116,18 @@ public class TreeNode {
         System.out.println(data);
     }
 
+    public void pathList(LinkedList<Integer> list){
+        list.add(this.data);
 
-
+        if (this.data % 2 == 0){
+            if (right != null){
+                right.pathList(list);
+            }
+        } else {
+            if (left != null){
+                left.pathList(list);
+            }
+        }
+    }
 }
 

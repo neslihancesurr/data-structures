@@ -130,7 +130,13 @@ public class QueueArray {
         while (!external.isEmpty()){
             enqueue(external.dequeue());
         }
-
-
     }
+
+    // p = 2
+    //  start || - - 4 (6 8) 2 4
+    //  start || 8 7 2 (6,8)
+
+    public void cutPaste(QueueArray dest, int p, int q) {
+    }
+
 }
