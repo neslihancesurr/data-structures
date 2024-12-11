@@ -84,6 +84,23 @@ public class TreeNode {
         }
     }
 
+    public static boolean isIdentical(TreeNode node1, TreeNode node2){
+
+        if (node1 == null && node2 == null){
+            return true;
+        }
+
+        if (node1 == null || node2 == null){
+            return false;
+        }
+
+        if (node1.data != node2.data){
+            return false;
+        }
+
+        return isIdentical(node1.left, node2.left) && isIdentical(node1.right, node2.left);
+    }
+
     // recursive preorder. should be called from the root node of a tree.
     public void preorder(){
         System.out.println(data);
